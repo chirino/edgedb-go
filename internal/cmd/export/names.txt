@@ -104,3 +104,6 @@ TxBlock
 TxConflict
 TxOptions
 UUID
+NewOptionalJson
+OptionalJson
+Json

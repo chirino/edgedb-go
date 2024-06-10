@@ -68,6 +68,15 @@ func (c *BytesCodec) Encode(
 	switch in := val.(type) {
 	case []byte:
 		return c.encodeData(w, in)
+	case types.Json:
+		return c.encodeData(w, in)
+	case types.OptionalJson:
+		data, ok := in.Get()
+		return encodeOptional(w, !ok, required,
+			func() error { return c.encodeData(w, data) },
+			func() error {
+				return missingValueError("edgedb.OptionalBytes", path)
+			})
 	case types.OptionalBytes:
 		data, ok := in.Get()
 		return encodeOptional(w, !ok, required,

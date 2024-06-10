@@ -27,6 +27,7 @@ import (
 	"go/token"
 	"log"
 	"os"
+	"sort"
 	"strings"
 	"text/template"
 
@@ -95,9 +96,15 @@ func main() {
 		log.Fatal(err)
 	}
 
-	quicksort(exports[token.CONST], func(e Export) string { return e.Name })
-	quicksort(exports[token.TYPE], func(e Export) string { return e.Name })
-	quicksort(exports[token.VAR], func(e Export) string { return e.Name })
+	sort.Slice(exports[token.CONST], func(i, j int) bool {
+		return strings.Compare(exports[token.CONST][i].Name, exports[token.CONST][j].Name) < 0
+	})
+	sort.Slice(exports[token.TYPE], func(i, j int) bool {
+		return strings.Compare(exports[token.TYPE][i].Name, exports[token.TYPE][j].Name) < 0
+	})
+	sort.Slice(exports[token.VAR], func(i, j int) bool {
+		return strings.Compare(exports[token.VAR][i].Name, exports[token.VAR][j].Name) < 0
+	})
 	err = t.Execute(&buf, map[string]any{
 		"PackageName": "edgedb",
 		"Imports": []string{

@@ -598,11 +598,17 @@ func generateBaseScalarV2(
 		} else {
 			name = "edgedb.OptionalStr"
 		}
-	case codecs.BytesID, codecs.JSONID:
+	case codecs.BytesID:
 		if required {
 			name = "[]byte"
 		} else {
 			name = "edgedb.OptionalBytes"
+		}
+	case codecs.JSONID:
+		if required {
+			name = "edgedb.Json"
+		} else {
+			name = "edgedb.OptionalJson"
 		}
 	case codecs.Int16ID:
 		if required {

@@ -71,13 +71,12 @@ type (
 	// ErrorTag is the argument type to Error.HasTag().
 	ErrorTag = edgedb.ErrorTag
 
-	// Executor is a common interface between Client and Tx,
-	// that can run queries on an EdgeDB database.
-	Executor = edgedb.Executor
-
 	// IsolationLevel documentation can be found here
 	// https://www.edgedb.com/docs/reference/edgeql/tx_start#parameters
 	IsolationLevel = edgedb.IsolationLevel
+
+	// Json represents a json value.
+	Json = edgedbtypes.Json
 
 	// LocalDate is a date without a time zone.
 	// https://www.edgedb.com/docs/stdlib/datetime#type::cal::local_date
@@ -149,6 +148,10 @@ type (
 	// OptionalInt64 is an optional int64. Optional types must be used for out
 	// parameters when a shape field is not required.
 	OptionalInt64 = edgedbtypes.OptionalInt64
+
+	// OptionalJson is an optional json. Optional types must be used for out
+	// parameters when a shape field is not required.
+	OptionalJson = edgedbtypes.OptionalJson
 
 	// OptionalLocalDate is an optional LocalDate. Optional types must be used for
 	// out parameters when a shape field is not required.
@@ -238,7 +241,7 @@ type (
 	// before making the next attempt when retrying a transaction.
 	RetryBackoff = edgedb.RetryBackoff
 
-	// RetryCondition represents scenarios that can caused a transaction
+	// RetryCondition represents scenarios that can cause a transaction
 	// run in Tx() methods to be retried.
 	RetryCondition = edgedb.RetryCondition
 
@@ -287,10 +290,6 @@ var (
 	//
 	// The following options are recognized: host, port, user, database, password.
 	CreateClientDSN = edgedb.CreateClientDSN
-
-	// DurationFromNanoseconds creates a Duration represented as microseconds
-	// from a [time.Duration] represented as nanoseconds.
-	DurationFromNanoseconds = edgedbtypes.DurationFromNanoseconds
 
 	// NewDateDuration returns a new DateDuration
 	NewDateDuration = edgedbtypes.NewDateDuration
@@ -347,6 +346,10 @@ var (
 	// NewOptionalInt64 is a convenience function for creating an OptionalInt64
 	// with its value set to v.
 	NewOptionalInt64 = edgedbtypes.NewOptionalInt64
+
+	// NewOptionalJson is a convenience function for creating an OptionalJson
+	// with its value set to v.
+	NewOptionalJson = edgedbtypes.NewOptionalJson
 
 	// NewOptionalLocalDate is a convenience function for creating an
 	// OptionalLocalDate with its value set to v.
@@ -427,9 +430,6 @@ var (
 
 	// NewRelativeDuration returns a new RelativeDuration
 	NewRelativeDuration = edgedbtypes.NewRelativeDuration
-
-	// NewRetryOptions returns the default RetryOptions value.
-	NewRetryOptions = edgedb.NewRetryOptions
 
 	// NewRetryRule returns the default RetryRule value.
 	NewRetryRule = edgedb.NewRetryRule
